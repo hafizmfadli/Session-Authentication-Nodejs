@@ -1,14 +1,16 @@
 const userDAO = require('../dao/user')
+const bcrypt = require('bcrypt')
 
 const signup = async (email, password) => {
-    // 1. validasi email (di middlware)
+    // 1. validasi email (dilakukan middlware)
 
-    // 2. hashing password
-    const hashPassword = password
-
-    // 3. insert to db
     try {
-        const user = await userDAO.insertOneUser(email, password)
+        // 2. password hashing
+        const saltRounds = 10
+        const hash = await bcrypt.hash(password, saltRounds)
+        
+        // 3. insert data to db
+        const user = await userDAO.insertOneUser(email, hash)
         return user
     } catch (error) {
         return Promise.reject(new Error('signup failed'))    
