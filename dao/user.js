@@ -21,12 +21,8 @@ const findUserByEmail = async (email) => {
     const values = [email]
 
     try {
-        const user = await db.query(text, values)
+        const user = (await db.query(text, values)).rows[0]
         return user
-        // if(user){
-        //     console.log(`user dengan email ${email} ditemukan`)
-        //     return user
-        // }
     } catch (error) {
         return Promise.reject(new Error('find user by email failed'))
     }
