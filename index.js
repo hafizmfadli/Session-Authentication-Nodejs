@@ -41,4 +41,4 @@ app.get('/product', (req, res) => {
     res.render('pages/product')
 })
 
-app.listen(PORT, () => console.log(`LISTEN ${PORT} SESSION_SECRET`))
+app.listen(PORT, () => console.log(`LISTEN ${PORT}`))
