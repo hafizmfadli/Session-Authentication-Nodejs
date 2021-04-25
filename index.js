@@ -3,6 +3,9 @@ const express = require('express')
 const { MemoryStore } = require('express-session')
 const session = require('express-session')
 const userDAO = require('./dao/user')
+const redis =  require('redis')
+const RedisStore = require('connect-redis')(session)
+let redisCLient = require('./db/redis')
 const app = express()
 const PORT = process.env.PORT || 8000
 
@@ -15,7 +18,7 @@ app.set('view engine', 'ejs')
 app.use(session({
     name: 'sessionid',
     secret: process.env.SESSION_SECRET,
-    store: sessionStorage,
+    store: new RedisStore({ client: redisCLient}),
     saveUninitialized: false,
     resave: false,
     rolling: true,
@@ -25,6 +28,11 @@ app.use(session({
         maxAge: 1000 * 60
     }
 }))
+
+app.get('/session', (req, res) => {
+    req.session.lastmodifed = new Date()
+    res.end()
+})
 
 app.get('/', (req, res) => {
     res.render('pages/index')
