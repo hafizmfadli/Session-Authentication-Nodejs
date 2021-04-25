@@ -9,13 +9,49 @@ const createUserTable = async () => {
     );`
     try {
         await db.query(sql)
-        console.log("User table berhasil dibuat")    
+        console.log('User table berhasil dibuat')    
         return Promise.resolve()
     } catch (error) {
-        return Promise.reject(new Error("User table gagal dibuat"))        
+        return Promise.reject(new Error('User table gagal dibuat'))        
     }    
 }
 
+const findUserByEmail = async (email) => {
+    const text = `SELECT * FROM users WHERE email = $1`
+    const values = [email]
+
+    try {
+        const user = await db.query(text, values)
+        return user
+        // if(user){
+        //     console.log(`user dengan email ${email} ditemukan`)
+        //     return user
+        // }
+    } catch (error) {
+        return Promise.reject(new Error('find user by email failed'))
+    }
+}
+
+const insertOneUser = async (email, password) => {
+    const text = `
+    INSERT INTO users(email, password)
+    VALUES ($1, $2)
+    RETURNING *;
+    `
+    const values = [email, password]
+
+    try {
+        const user = (await db.query(text, values)).rows[0]
+        console.log('DAO : INSERT user success', user)
+        return user
+    } catch (error) {
+        return Promise.reject(new Error('DAO : INSERT user gagal'))
+    }
+
+}
+
 module.exports = {
-    createUserTable
+    createUserTable,
+    findUserByEmail,
+    insertOneUser
 }
