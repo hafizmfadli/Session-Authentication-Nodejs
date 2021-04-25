@@ -1,4 +1,4 @@
-const db = require('../db/index')
+const db = require('../db/postgres')
 
 const createUserTable = async () => {
     const sql = `
