@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const { MemoryStore } = require('express-session')
 const session = require('express-session')
+const userDAO = require('./dao/user')
 const app = express()
 const PORT = process.env.PORT || 8000
 
@@ -41,4 +42,11 @@ app.get('/product', (req, res) => {
     res.render('pages/product')
 })
 
-app.listen(PORT, () => console.log(`LISTEN ${PORT}`))
+app.listen(PORT, async() => {
+    try {
+        await userDAO.createUserTable()    
+        console.log(`LISTEN PORT ${PORT}`)
+    } catch (error) {
+        console.error(error)
+    }
+})
