@@ -17,7 +17,6 @@ const login = [
     body('email', 'email tidak valid').exists().isEmail().bail(),
     body('email').custom((value) => {
         return UserDAO.findUserByEmail(value).then((user) => {
-            console.log('Validator : ', user)
             if(typeof user === 'undefined'){
                 console.log("REJECTT")
                 return Promise.reject(new Error('email tidak terdaftar'))
