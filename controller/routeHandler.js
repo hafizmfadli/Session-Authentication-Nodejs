@@ -60,6 +60,15 @@ const loginHandler = async (req, res, next) => {
     }
 }
 
+const logoutHandler = (req, res, next) => {
+    req.session.destroy((err) => {
+        if(err){
+            next(err)
+        }
+        res.end()
+    })
+}
+
 
 module.exports = {
     getHomePage,
@@ -67,5 +76,6 @@ module.exports = {
     getProductPage,
     getSignupPage,
     signupHandler,
-    loginHandler
+    loginHandler,
+    logoutHandler
 }
