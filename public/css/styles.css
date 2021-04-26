@@ -72,6 +72,13 @@ form a{
     margin-right: 25%;
 }
 
+.email.error {
+    color: red;
+}
+
+.password.error{
+    color: red;
+}
 
 .footer{
     text-align: center;
