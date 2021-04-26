@@ -69,7 +69,7 @@ const logoutHandler = (req, res, next) => {
         if(err){
             next(err)
         }
-        res.end()
+        res.redirect('/')
     })
 }
 
