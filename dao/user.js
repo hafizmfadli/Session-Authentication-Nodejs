@@ -12,7 +12,7 @@ const createUserTable = async () => {
         console.log('User table berhasil dibuat')    
         return Promise.resolve()
     } catch (error) {
-        return Promise.reject(new Error('User table gagal dibuat'))        
+        return Promise.reject(error)        
     }    
 }
 
@@ -24,7 +24,7 @@ const findUserByEmail = async (email) => {
         const user = (await db.query(text, values)).rows[0]
         return user
     } catch (error) {
-        return Promise.reject(new Error('find user by email failed'))
+        return Promise.reject(error)
     }
 }
 
@@ -41,7 +41,7 @@ const insertOneUser = async (email, password) => {
         console.log('DAO : INSERT user success', user)
         return user
     } catch (error) {
-        return Promise.reject(new Error('DAO : INSERT user gagal'))
+        return Promise.reject(error)
     }
 
 }
