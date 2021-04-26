@@ -4,7 +4,7 @@ const checkAuth = (req, res, next) => {
         // error.statusCode = 401
         // next(error)
         
-        res.redirect('/login')
+        return res.redirect('/login')
     }
     next()
 }
