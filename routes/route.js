@@ -15,4 +15,6 @@ router.post('/signup', dataValidatorSanitizer.signup, controller.signupHandler)
 
 router.post('/login', dataValidatorSanitizer.login , controller.loginHandler)
 
+router.get('/logout', controller.logoutHandler)
+
 module.exports = router
