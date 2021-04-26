@@ -4,6 +4,7 @@ const express = require('express')
 const session = require('./middleware/session')
 const userDAO = require('./dao/user')
 const routes = require('./routes/route')
+const identifyUser = require('./middleware/identifyUser')
 
 const app = express()
 const PORT = process.env.PORT || 8000
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs')
 // middleware
 app.use(express.json())
 app.use(session)
+app.use('*', identifyUser)
 app.use(routes)
 
 app.listen(PORT, async() => {
