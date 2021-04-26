@@ -30,11 +30,13 @@ const signupHandler = async (req, res, next) => {
         const user = await userServive.signup(email, password)
         req.session.user = user
         res.json({
-            message: 'signup user success',
-            data: user
+            message: 'login success',
+            data: {
+                id: user.user_id
+            }
         })
     } catch (error) {
-        res.status(error.status).json({errors : error})
+        res.status(error.status).json(error)
     }
 }
 
