@@ -13,4 +13,6 @@ router.get('/product', controller.getProductPage)
 
 router.post('/signup', dataValidatorSanitizer.signup, controller.signupHandler)
 
+router.post('/login', dataValidatorSanitizer.login , controller.loginHandler)
+
 module.exports = router
