@@ -24,6 +24,7 @@ const signupHandler = async (req, res, next) => {
     try {
         const error = validationResult(req)
         if(!error.isEmpty()){
+            error.status = 400
             throw error
         }
         const user = await userServive.signup(email, password)
@@ -33,14 +34,38 @@ const signupHandler = async (req, res, next) => {
             data: user
         })
     } catch (error) {
-        res.status(400).json({errors : error.array()})
+        res.status(error.status).json({errors : error})
     }
 }
+
+const loginHandler = async (req, res, next) => {
+    const { email, password } = req.body
+
+    try {
+        const error = validationResult(req)
+        
+        if(!error.isEmpty()){
+            error.status = 400
+            throw error
+        }
+        const user = await userServive.login(email, password)
+        req.session.user = user
+        res.json({
+            message: 'login success',
+            data: user
+        })
+    } catch (error) {
+        // res.json({errors : error.array()})       
+        res.status(error.status).json({errors : error})
+    }
+}
+
 
 module.exports = {
     getHomePage,
     getLoginPage,
     getProductPage,
     getSignupPage,
-    signupHandler
+    signupHandler,
+    loginHandler
 }
