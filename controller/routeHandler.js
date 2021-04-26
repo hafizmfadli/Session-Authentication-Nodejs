@@ -52,11 +52,13 @@ const loginHandler = async (req, res, next) => {
         req.session.user = user
         res.json({
             message: 'login success',
-            data: user
+            data: {
+                id: user.user_id
+            }
         })
     } catch (error) {
         // res.json({errors : error.array()})       
-        res.status(error.status).json({errors : error})
+        res.status(error.status).json(error)
     }
 }
 
