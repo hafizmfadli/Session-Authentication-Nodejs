@@ -24,6 +24,15 @@ REDIS_PORT=your_redis_port
 # session secret
 SESSION_SECRET=your_session_secret
 ```
+### Run redis server
+```
+$ redis-server
+[28550] 01 Aug 19:29:28 # Warning: no config file specified, using the default config. In order to specify a config file use 'redis-server /path/to/redis.conf'
+[28550] 01 Aug 19:29:28 * Server started, Redis version 2.2.12
+[28550] 01 Aug 19:29:28 * The server is now ready to accept connections on port 6379
+... more logs ...
+```
+
 ### install nodemon globally on your machine
 
 `npm install -g nodemon`
