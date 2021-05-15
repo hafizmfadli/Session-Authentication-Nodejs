@@ -29,7 +29,12 @@ const login = async (email, password) => {
             return user
         }
         error.status = 400
-        error.message = 'password salah'
+        error.errors = [
+            {
+                param: 'password',
+                msg: 'email atau password salah'
+            }
+        ]
         throw error
     } catch (error) {
         return Promise.reject(error)
